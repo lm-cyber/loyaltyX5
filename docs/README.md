@@ -1,39 +1,43 @@
 # Документация «X5 Двор»
 
-Этот файл задаёт канонический порядок чтения. Если документы расходятся, используйте приоритет: условия кейса и поздние уточнения → safety/privacy/causal constraints → профильное исследование → итоговая концепция → ранний черновик.
+Этот файл задаёт канонический порядок чтения. Если документы расходятся, используйте приоритет: условия кейса и поздние уточнения → актуальное продуктовое решение → safety/privacy/causal constraints → профильное исследование → техническая концепция → ранний черновик.
 
 ## Быстрое погружение — 30–40 минут
 
 1. [01-case.md](01-case.md) — исходная задача, границы и критерии.
 2. [08-correspondence-summary.md](08-correspondence-summary.md) — последние уточнения организаторов и команды.
-3. [00-final-concept.md](00-final-concept.md) — итоговое решение от пользовательской петли до пилота и питча.
-4. [05-team-plan.md](05-team-plan.md) — роли и ближайшие командные задачи.
+3. [09-current-product-direction.md](09-current-product-direction.md) — что именно команда решила строить.
+4. [00-final-concept.md](00-final-concept.md) — техническая база от AI до пилота и питча.
+5. [05-team-plan.md](05-team-plan.md) — роли и ближайшие командные задачи.
 
-После этих четырёх документов коллега должен понимать, что строим, почему социальный слой отделён от ядра, как защищается маржа и чем PoC отличается от реального пилота.
+После этих документов коллега должен понимать, что строим, как СТМ и «горячий» остаток используются в четырёх механиках, как защищается маржа и чем PoC отличается от реального пилота.
 
 ## Чтение по ролям
 
 ### Product и UX
 
-1. [00-final-concept.md](00-final-concept.md), разделы 1–6 и 16–20.
-2. [research/01-game-mechanics.md](research/01-game-mechanics.md) — выбор персональной миссии, приватного прогресса и «Двора-Lite».
-3. [research/03-mechanic-recommender.md](research/03-mechanic-recommender.md) — правила выбора механики и объяснения.
-4. [dvor-spec.md](dvor-spec.md) — исходная расширенная гипотеза коллеги; читать как исторический дизайн, не как финальные правила.
+1. [09-current-product-direction.md](09-current-product-direction.md) — актуальные четыре механики и приоритет реализации.
+2. [00-final-concept.md](00-final-concept.md), разделы 1–6 и 16–20.
+3. [research/01-game-mechanics.md](research/01-game-mechanics.md) — доказательная база и риски игровых механик.
+4. [research/03-mechanic-recommender.md](research/03-mechanic-recommender.md) — правила выбора механики и объяснения.
+5. [dvor-spec.md](dvor-spec.md) — исходная расширенная гипотеза коллеги; читать как исторический дизайн, не как финальные правила.
 
 ### AI и backend
 
-1. [00-final-concept.md](00-final-concept.md), разделы 7–10 и 12.
-2. [research/02-ai-challenge-generator.md](research/02-ai-challenge-generator.md) — контракт и ограничения генератора миссий.
-3. [research/03-mechanic-recommender.md](research/03-mechanic-recommender.md) — policy/ranker и reason codes.
-4. [research/05-antifraud.md](research/05-antifraud.md) — event integrity, ledger, graph-lite и tiered actions.
+1. [09-current-product-direction.md](09-current-product-direction.md), раздел «Что будем делать в PoC».
+2. [00-final-concept.md](00-final-concept.md), разделы 7–10 и 12.
+3. [research/02-ai-challenge-generator.md](research/02-ai-challenge-generator.md) — контракт и ограничения генератора миссий.
+4. [research/03-mechanic-recommender.md](research/03-mechanic-recommender.md) — policy/ranker и reason codes.
+5. [research/05-antifraud.md](research/05-antifraud.md) — event integrity, ledger, graph-lite и tiered actions.
 
 ### Analytics, экономика и эксперимент
 
-1. [research/04-reward-economics.md](research/04-reward-economics.md) и [сценарии CSV](research/04-reward-scenarios.csv).
-2. [research/06-simulation-summary.md](research/06-simulation-summary.md) — корректная интерпретация 1k/10k и Monte Carlo.
-3. [research/simulation/README.md](research/simulation/README.md) — код, конфиг и сохранённые результаты.
-4. [research/07-pilot-plan.md](research/07-pilot-plan.md) — preregistration-ready store-cluster RCT.
-5. [03-metrics-and-pilot.md](03-metrics-and-pilot.md) — ранняя постановка метрик; при конфликте использовать профильный отчёт 07.
+1. [09-current-product-direction.md](09-current-product-direction.md), разделы об экономике, СТМ и метриках.
+2. [research/04-reward-economics.md](research/04-reward-economics.md) и [сценарии CSV](research/04-reward-scenarios.csv).
+3. [research/06-simulation-summary.md](research/06-simulation-summary.md) — корректная интерпретация 1k/10k и Monte Carlo.
+4. [research/simulation/README.md](research/simulation/README.md) — код, конфиг и сохранённые результаты.
+5. [research/07-pilot-plan.md](research/07-pilot-plan.md) — preregistration-ready store-cluster RCT.
+6. [03-metrics-and-pilot.md](03-metrics-and-pilot.md) — ранняя постановка метрик; при конфликте использовать профильный отчёт 07.
 
 ### Сегменты и демография
 
