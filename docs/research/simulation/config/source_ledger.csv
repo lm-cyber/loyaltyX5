@@ -1,0 +1,21 @@
+﻿parameter,variant,value_or_range,reference_date,population_or_unit,status,source_key,replacement_rule
+adult_age_band,18-24,8.990%,2024-01-01,Russia 18+,DERIVED,ROSSTAT_AGE_2024,Replace only if newer official age structure is deliberately adopted
+adult_age_band,25-34,15.057%,2024-01-01,Russia 18+,DERIVED,ROSSTAT_AGE_2024,same
+adult_age_band,35-44,21.112%,2024-01-01,Russia 18+,DERIVED,ROSSTAT_AGE_2024,same
+adult_age_band,45-54,17.104%,2024-01-01,Russia 18+,DERIVED,ROSSTAT_AGE_2024,same
+adult_age_band,55-64,16.225%,2024-01-01,Russia 18+,DERIVED,ROSSTAT_AGE_2024,same
+adult_age_band,65+,21.511%,2024-01-01,Russia 18+,DERIVED,ROSSTAT_AGE_2024,same
+internet_use,age-conditional,see source priors,2025,Russia 18+,PUBLIC_PROXY,ROSSTAT_ICT_2025,Do not treat as X5 app penetration
+loyalty_member_probability,base,0.78,simulation,synthetic adults,ASSUMPTION,none,Replace with X5 loyalty penetration in pilot population
+app_user_probability,base conditional model,scenario model,simulation,loyalty members,ASSUMPTION,none,Replace with observed X5 app activity model
+visit_frequency,archetype rates,0.28–4.2 visits/week,simulation,synthetic users,ASSUMPTION,none,Fit from receipt history
+basket_value,archetype medians,520–1100 RUB,simulation,synthetic receipts,ASSUMPTION,none,Fit from receipt distribution
+contribution_margin_rate,base,0.20,simulation,net sales,ASSUMPTION,none,Replace with finance-approved contribution margin
+return_probability,base,0.010,simulation,receipts,ASSUMPTION,none,Replace with observed return/cancellation rate
+true_treatment_effect,base,heterogeneous ~ -3% to +12%,simulation,potential outcomes,LATENT_GROUND_TRUTH,none,Not estimated from synthetic data; vary in scenarios
+yard_size,base,3–7,simulation,yard,ASSUMPTION,dvor-spec,Validate UX and power implications
+yard_min_pool,base,20,simulation,active store pool,ASSUMPTION,dvor-spec,Privacy/legal validation required
+yard_backup_coef,base,0.70,simulation,yard cycle,ASSUMPTION,dvor-spec,A/B or product validation
+reward_rub,base,80 RUB-equivalent/cycle,simulation,completed member-cycle,ASSUMPTION,none,Optimize against incremental margin
+brand_funding_probability,base,0.30,simulation,reward,ASSUMPTION,none,Replace with commercial agreements
+fraud_prevalence,base,1.0% users,simulation,synthetic users,LATENT_GROUND_TRUTH,none,Stress-test and replace with observed prevalence estimate

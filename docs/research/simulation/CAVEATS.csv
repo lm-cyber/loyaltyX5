@@ -1,0 +1,4 @@
+﻿topic,note
+10k item lines,"Item-level rows are provided for n=1,000; n=10,000 is receipt-level to keep the PoC archive practical."
+10k age rounding,Normalized supplied age weights produce a 1-user difference vs the suggested fixed 10k quota in 55–64/65+; validation allows max deviation of one user.
+external validity,"All behavioral, economic, app-selection, reward, fraud and treatment-effect values are synthetic assumptions/latent inputs until replaced by X5/pilot data."

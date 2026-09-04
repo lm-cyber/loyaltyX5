@@ -1,0 +1,18 @@
+﻿n_users,check,passed,detail
+1000,unique_user_id,True,1000/1000 unique
+1000,age_quota_matches_published_rounding,True,"actual={'65+': 215, '35-44': 211, '45-54': 171, '55-64': 162, '25-34': 151, '18-24': 90}; published={'18-24': 90, '25-34': 151, '35-44': 211, '45-54': 171, '55-64': 162, '65+': 215}; max_abs_count_deviation=0"
+1000,assignment_precedes_treatment,True,assignment_ts < treatment_start_ts
+1000,no_fraud_label_in_features,True,ground truth separated
+1000,receipt_user_fk,True,all receipt users valid
+1000,receipt_store_fk,True,all receipt stores valid
+1000,items_to_receipts_reconcile,True,max_abs_diff=0.0
+1000,reward_ledger_reconcile,True,max_abs_diff=0.0
+1000,aa_null_not_rejected_5pct,True,"Y0 test-control diff=-2.1285, SE=1.0973, z=-1.940"
+10000,unique_user_id,True,10000/10000 unique
+10000,age_quota_matches_published_rounding,True,"actual={'65+': 2151, '35-44': 2111, '45-54': 1710, '55-64': 1623, '25-34': 1506, '18-24': 899}; published={'18-24': 899, '25-34': 1506, '35-44': 2111, '45-54': 1710, '55-64': 1622, '65+': 2152}; max_abs_count_deviation=1"
+10000,assignment_precedes_treatment,True,assignment_ts < treatment_start_ts
+10000,no_fraud_label_in_features,True,ground truth separated
+10000,receipt_user_fk,True,all receipt users valid
+10000,receipt_store_fk,True,all receipt stores valid
+10000,reward_ledger_reconcile,True,max_abs_diff=0.0
+10000,aa_null_not_rejected_5pct,True,"Y0 test-control diff=0.1245, SE=0.3518, z=0.354"

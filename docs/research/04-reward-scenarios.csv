@@ -1,0 +1,55 @@
+section,metric,conservative,base,upside,unit_comment
+INPUTS,Eligible users,100000,100000,100000,users/campaign
+INPUTS,Baseline visits,3,4,5,visits/eligible/window
+INPUTS,Average check before game reward,500,600,700,₽/visit
+INPUTS,Contribution margin rate,0.1,0.12,0.14,% revenue
+INPUTS,CM per visit,50,72,98.00000000000001,₽/visit
+INPUTS,"Observed incremental visits, mean",0.1,0.25,0.5,visits/eligible
+INPUTS,SE incremental visits,0.030395,0.045593,0.045593,visits/eligible
+INPUTS,One-sided z,1.645,1.645,1.645,coefficient
+INPUTS,Pull-forward share,0.5,0.25,0.1,% observed uplift
+INPUTS,Risk buffer,0.25,0.2,0.15,% LCB
+INPUTS,Promo/cannibalization margin loss,0.2,0.1,0.05,% sustained ΔCM
+INPUTS,Return margin loss,0.02,0.01,0.005,% sustained ΔCM
+INPUTS,Variable cost per sustained visit,5,4,3,₽/visit
+INPUTS,Ops cost per eligible,0.3,0.3,0.3,₽/eligible
+INPUTS,Valid completion probability,0.25,0.35,0.5,% eligible
+INPUTS,Redemption probability,0.92,0.85,0.75,% earned
+INPUTS,Breakage,0.08,0.15,0.25,% earned
+INPUTS,Unit economic cost,1,1,1,₽/redeemed ₽
+INPUTS,Partner share collected,0,0.25,0.5,% gross valid cost
+INPUTS,Fraud multiplier,0.03,0.015,0.005,% X5 valid cost
+INPUTS,Event cap,150,150,150,₽ nominal
+INPUTS,User 28d cap,250,250,250,₽ nominal
+INPUTS,Selected nominal reward,0,20,140,₽/completer
+CALCULATIONS,Baseline contribution margin,150,288,490.00000000000006,₽/eligible/window
+CALCULATIONS,Gross incremental contribution margin,5,18,49.00000000000001,₽/eligible
+CALCULATIONS,Sustained incremental visits,0.05,0.1875,0.45,visits/eligible
+CALCULATIONS,Sustained incremental contribution margin,2.5,13.5,44.10000000000001,₽/eligible
+CALCULATIONS,LCB observed incremental visits,0.05000022500000001,0.174999515,0.424999515,visits/eligible
+CALCULATIONS,LCB sustained incremental CM,1.2500056250000002,9.44997381,37.48495722300001,₽/eligible
+CALCULATIONS,Prudent CM after risk buffer,0.9375042187500002,7.559979048,31.862213639550006,₽/eligible
+CALCULATIONS,Promo/cannibalization loss,0.5,1.35,2.2050000000000005,₽/eligible
+CALCULATIONS,Return/void loss,0.05,0.135,0.22050000000000006,₽/eligible
+CALCULATIONS,Incremental variable cost,0.25,0.75,1.35,₽/eligible
+CALCULATIONS,Total non-reward cost K,1.1,2.535,4.075500000000001,₽/eligible
+CALCULATIONS,Reward budget before hard caps,0,5.024979048,27.786713639550005,₽/eligible
+CALCULATIONS,Economic cost coefficient per ₽ nominal,0.23690000000000003,0.22647187499999996,0.18843749999999998,₽/eligible per ₽ nominal
+CALCULATIONS,Economic R_max,0,22.188093104276195,147.45851351004978,₽ nominal/completer
+CALCULATIONS,Final R_max after event/user caps,0,22.188093104276195,147.45851351004978,₽ nominal/completer
+CALCULATIONS,Gross valid reward cost,0,5.949999999999999,52.5,₽/eligible
+CALCULATIONS,Partner funding collected,0,1.4874999999999998,26.25,₽/eligible
+CALCULATIONS,Fraud/failed-recovery loss,0,0.06693749999999998,0.13125,₽/eligible
+CALCULATIONS,X5 economic reward cost,0,4.529437499999999,26.38125,₽/eligible
+CALCULATIONS,Mean net profit per eligible,1.4,6.4355625000000005,13.643250000000009,₽/eligible
+CALCULATIONS,Prudent LCB profit per eligible,-0.16249578124999986,0.4955415480000003,1.4054636395500033,₽/eligible
+CALCULATIONS,Campaign mean profit,140000,643556.25,1364325.000000001,₽/campaign
+CALCULATIONS,X5 controllable investment,55000.00000000001,557943.7499999999,2803125.0000000005,₽/campaign
+CALCULATIONS,ROI_X5,2.545454545454545,1.1534428873878417,0.4867157190635454,ratio
+CALCULATIONS,Break-even sustained visits,0.008823529411764706,0.08038344707057256,0.2977485771677268,visits/eligible
+CALCULATIONS,Break-even observed visits,0.01764705882352941,0.10717792942743008,0.3308317524085853,visits/eligible
+CALCULATIONS,Decision,NO CHALLENGE,LAUNCH WITH STOP-LOSS,LAUNCH WITH STOP-LOSS,gate result
+ADDITIONAL REQUIRED DIAGNOSTICS,Test contribution margin before game reward,155,306,539.0000000000001,baseline CM + gross ΔCM; ₽/eligible/window
+ADDITIONAL REQUIRED DIAGNOSTICS,Net behavioural incremental CM before reward,1.95,12.015,41.67450000000001,sustained ΔCM − promo/cannibalization − returns; ₽/eligible
+ADDITIONAL REQUIRED DIAGNOSTICS,Cannibalized reward cost (diagnostic subset),0,2.2647187499999997,7.914375,X5 reward cost × q_always_buyer; do not subtract twice
+ADDITIONAL REQUIRED DIAGNOSTICS,Profit per valid completer (diagnostic),5.6,18.387321428571433,27.286500000000018,mean campaign profit / expected valid completers; zero denominator→NA

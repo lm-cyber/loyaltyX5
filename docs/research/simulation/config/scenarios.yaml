@@ -1,0 +1,45 @@
+version: 1
+note: "Synthetic scenario inputs; not a forecast of X5 outcomes."
+scenarios:
+  conservative:
+    causal_uplift_mean: 0.02
+    reward_rub: 100
+    margin_rate: 0.16
+    cannibalization: 0.30
+    fraud_prevalence: 0.015
+    group_harm_probability: 0.15
+  base:
+    causal_uplift_mean: 0.06
+    reward_rub: 80
+    margin_rate: 0.20
+    cannibalization: 0.15
+    fraud_prevalence: 0.010
+    group_harm_probability: 0.08
+  upside:
+    causal_uplift_mean: 0.10
+    reward_rub: 60
+    margin_rate: 0.24
+    cannibalization: 0.08
+    fraud_prevalence: 0.007
+    group_harm_probability: 0.04
+  stress_low_completion:
+    causal_uplift_mean: 0.01
+    reward_rub: 80
+    margin_rate: 0.20
+    cannibalization: 0.20
+    fraud_prevalence: 0.010
+    group_harm_probability: 0.12
+  stress_high_fraud:
+    causal_uplift_mean: 0.06
+    reward_rub: 80
+    margin_rate: 0.20
+    cannibalization: 0.15
+    fraud_prevalence: 0.050
+    group_harm_probability: 0.08
+  stress_group_harm:
+    causal_uplift_mean: 0.01
+    reward_rub: 80
+    margin_rate: 0.20
+    cannibalization: 0.15
+    fraud_prevalence: 0.010
+    group_harm_probability: 0.30

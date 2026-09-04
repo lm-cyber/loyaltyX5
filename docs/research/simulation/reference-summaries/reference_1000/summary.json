@@ -1,0 +1,20 @@
+{
+  "n_users": 1000,
+  "n_app_users": 532,
+  "n_experiment_users": 446,
+  "n_yards": 100,
+  "test_users": 221,
+  "control_users": 225,
+  "post_visits_per_user_test": 16.941176470588236,
+  "post_visits_per_user_control": 18.4,
+  "observed_frequency_uplift_relative": -0.07928388746803061,
+  "mean_true_incremental_visits_8w": 0.6748878923766816,
+  "incremental_contribution_margin_per_user_rub": -329.9584,
+  "x5_reward_cost_total_rub": 14288.2,
+  "all_reward_cost_total_rub": 20392.67,
+  "net_incremental_cm_per_test_user_rub": -394.6108886877828,
+  "yard_cycle_completion_rate": 0.2708333333333333,
+  "fraud_precision_at_0_65": 0.0,
+  "fraud_recall_at_0_65": 0.0,
+  "receipt_count": 74128
+}
