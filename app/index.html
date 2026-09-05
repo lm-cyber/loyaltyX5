@@ -1,0 +1,406 @@
+<title>Игровой слой X5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+<style>
+:root{
+  --ink:#0E1512; --ink-2:#3A4842; --ink-3:#6B7A73;
+  --ground:#F4F7F4; --panel:#FFFFFF; --line:#DFE6E1; --line-2:#EDF2EE;
+  --ok:#0F7B3E; --ok-bg:#E8F5ED;
+  --warn:#9A6207; --warn-bg:#FDF4E3;
+  --bad:#B3261E; --bad-bg:#FCEDEC;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ui:'Inter Tight',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --r:14px;
+  --topH:57px;
+}
+:root:not([data-theme="light"]){
+  @media (prefers-color-scheme:dark){
+    --ink:#E8EFEA; --ink-2:#A9B8B0; --ink-3:#7C8C84;
+    --ground:#0C110E; --panel:#141B17; --line:#25302A; --line-2:#1B241E;
+    --ok:#5BD08A; --ok-bg:#12291C;
+    --warn:#E8B45C; --warn-bg:#2A2113;
+    --bad:#F1897F; --bad-bg:#2C1614;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#E8EFEA; --ink-2:#A9B8B0; --ink-3:#7C8C84;
+  --ground:#0C110E; --panel:#141B17; --line:#25302A; --line-2:#1B241E;
+  --ok:#5BD08A; --ok-bg:#12291C;
+  --warn:#E8B45C; --warn-bg:#2A2113;
+  --bad:#F1897F; --bad-bg:#2C1614;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:var(--ui); font-size:14px; line-height:1.5;
+  -webkit-font-smoothing:antialiased; overflow:hidden;
+}
+h1,h2,h3{margin:0; text-wrap:balance; letter-spacing:-.02em}
+button{font:inherit; color:inherit; cursor:pointer; border:none; background:none}
+:focus-visible{outline:2px solid var(--ok); outline-offset:2px; border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important; transition-duration:.01ms!important}}
+
+/* ---------- Верхняя полоса ---------- */
+.top{
+  height:var(--topH); display:flex; align-items:center; gap:14px; padding:0 20px;
+  border-bottom:1px solid var(--line); background:var(--panel);
+}
+.brandmark b{font-size:15.5px; font-weight:800; letter-spacing:-.03em; display:block; line-height:1.2}
+.brandmark span{font-size:10.5px; color:var(--ink-3); font-family:var(--mono)}
+.synthetic{
+  margin-left:auto; font-family:var(--mono); font-size:10px; letter-spacing:.03em;
+  color:var(--warn); background:var(--warn-bg);
+  border:1px solid color-mix(in srgb,var(--warn) 30%,transparent);
+  padding:5px 10px; border-radius:999px; white-space:nowrap;
+}
+@media (max-width:720px){ .synthetic{display:none} }
+
+/* ---------- Две независимо скроллящиеся половины ---------- */
+.stage{
+  height:calc(100% - var(--topH));
+  display:grid; grid-template-columns:minmax(430px,462px) minmax(0,1fr);
+}
+.left{
+  overflow-y:auto; padding:18px 20px 28px;
+  border-right:1px solid var(--line); display:flex; flex-direction:column; align-items:center;
+}
+.right{overflow-y:auto; padding:18px 20px 40px}
+.left::-webkit-scrollbar,.right::-webkit-scrollbar{width:9px}
+.left::-webkit-scrollbar-thumb,.right::-webkit-scrollbar-thumb{
+  background:var(--line); border-radius:99px; border:3px solid var(--ground);
+}
+/* ---------- Селекторы ---------- */
+.pickers{width:390px; display:flex; flex-direction:column; gap:13px; margin-bottom:16px}
+.picklabel{
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.09em; color:var(--ink-3);
+  text-transform:uppercase; display:block; margin-bottom:7px;
+}
+.pickrow{display:flex; gap:7px; flex-wrap:wrap}
+.pick{
+  display:inline-flex; align-items:center; gap:7px;
+  padding:8px 13px; border-radius:11px; border:1px solid var(--line);
+  background:var(--panel); font-size:12.5px; font-weight:600; transition:.15s; line-height:1.2;
+}
+.pick:hover{border-color:var(--ink-3)}
+.pick[aria-pressed="true"]{background:var(--ink); color:var(--ground); border-color:var(--ink)}
+.pick .dot{width:8px; height:8px; border-radius:50%; flex:none}
+.pick .em{font-size:14px}
+.pick i{font-style:normal; font-family:var(--mono); font-size:9.5px; opacity:.6}
+
+/* ---------- Телефон ---------- */
+.phone{
+  width:390px; height:786px; border-radius:52px; padding:11px; flex:none;
+  background:linear-gradient(160deg,#2b3330,#0d1210);
+  box-shadow:0 26px 60px -24px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.06) inset;
+}
+.screen{
+  width:100%; height:100%; border-radius:42px; overflow:hidden; position:relative;
+  background:var(--sk-surface); color:var(--sk-ink);
+  display:flex; flex-direction:column;
+}
+.notch{
+  position:absolute; top:0; left:50%; transform:translateX(-50%);
+  width:118px; height:26px; background:#0d1210; border-radius:0 0 16px 16px; z-index:9;
+}
+.statusbar{
+  display:flex; justify-content:space-between; padding:10px 25px 2px;
+  font-size:11.5px; font-weight:600; font-family:var(--mono); flex:none;
+}
+.appbar{display:flex; align-items:center; gap:10px; padding:7px 17px 11px; flex:none}
+.applogo{
+  height:26px; display:flex; align-items:center;
+}
+.applogo img{height:100%; width:auto; display:block}
+.applogo.badge{
+  width:28px; border-radius:9px; justify-content:center;
+  background:var(--sk-primary); color:var(--sk-on); font-weight:800; font-size:14px;
+}
+.appsub{font-size:10px; color:var(--sk-muted); font-family:var(--mono); margin-top:1px}
+.balance{margin-left:auto; text-align:right}
+.balance b{display:block; font-size:14px; font-family:var(--mono); font-weight:700}
+.balance span{font-size:9.5px; color:var(--sk-muted)}
+
+.viewport{flex:1; overflow-y:auto; overflow-x:hidden; padding:0 15px 12px}
+.viewport::-webkit-scrollbar{width:0}
+
+.tabbar{display:flex; flex:none; border-top:1px solid var(--sk-line); background:var(--sk-card); padding:7px 6px 20px}
+.tab{
+  flex:1; display:flex; flex-direction:column; align-items:center; gap:3px;
+  padding:5px 2px; border-radius:11px; font-size:9.5px; font-weight:600;
+  color:var(--sk-muted); transition:.15s;
+}
+.tab b{font-size:16px; font-weight:400; line-height:1}
+.tab[aria-selected="true"]{color:var(--sk-primary-ink)}
+
+/* ---------- Карточки в телефоне ---------- */
+.hero{
+  border-radius:21px; padding:16px; margin-bottom:12px;
+  background:var(--sk-primary); color:var(--sk-on); position:relative; overflow:hidden;
+}
+.hero::after{
+  content:''; position:absolute; right:-40px; top:-40px; width:142px; height:142px;
+  border-radius:50%; background:rgba(255,255,255,.12);
+}
+.hero .kicker{
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.09em; text-transform:uppercase;
+  opacity:.85; display:flex; align-items:center; gap:6px; position:relative;
+}
+.hero h2{font-size:20px; font-weight:800; margin:7px 0 6px; position:relative}
+.hero p{margin:0; font-size:12.5px; opacity:.92; line-height:1.45; position:relative}
+
+.card{background:var(--sk-card); border:1px solid var(--sk-line); border-radius:var(--r); padding:14px; margin-bottom:11px}
+.card h3{font-size:13px; font-weight:700; margin-bottom:9px; display:flex; align-items:center; gap:7px}
+.card h3 .ic{font-size:15px}
+.muted{font-size:12px; color:var(--sk-muted); line-height:1.45}
+
+.avatar{display:flex; align-items:center; gap:13px}
+.avaring{
+  width:58px; height:58px; border-radius:50%; display:grid; place-items:center;
+  font-size:26px; flex:none; background:var(--sk-soft); border:2.5px solid var(--sk-primary);
+}
+.avameta b{font-size:14.5px; font-weight:700; display:block}
+.avameta span{font-size:11px; color:var(--sk-muted)}
+.xpbar{height:7px; border-radius:99px; background:var(--sk-line); margin-top:7px; overflow:hidden}
+.xpbar i{display:block; height:100%; background:var(--sk-primary); border-radius:99px}
+
+.steps{display:flex; gap:6px; margin:11px 0 9px}
+.step{
+  flex:1; height:34px; border-radius:9px; display:grid; place-items:center;
+  font-size:13px; font-weight:700; font-family:var(--mono);
+  background:var(--sk-soft); color:var(--sk-muted); border:1.5px solid transparent;
+}
+.step.done{background:var(--sk-primary); color:var(--sk-on)}
+.step.now{border-color:var(--sk-primary); color:var(--sk-primary-ink)}
+
+.perk{display:flex; gap:12px; align-items:center; padding:11px 12px; border-radius:12px; background:var(--sk-soft)}
+.perk + .perk{margin-top:7px}
+.perk .emo{font-size:20px; width:34px; height:34px; flex:none; display:grid; place-items:center; border-radius:10px; background:var(--sk-card); font-weight:700; color:var(--sk-primary-ink)}
+.perk b{display:block; font-size:12px; font-weight:700; line-height:1.3}
+.perk span{font-size:10.5px; color:var(--sk-muted); line-height:1.35}
+.btn.ghost{background:transparent; color:var(--sk-primary-ink); border:1.5px solid var(--sk-line)}
+.prize{display:flex; gap:12px; align-items:center; padding:12px; border-radius:12px; background:var(--sk-soft); margin-top:10px}
+.prize .emo{font-size:30px; flex:none}
+.prize b{display:block; font-size:12.5px; font-weight:700; line-height:1.25}
+.prize span{font-size:10.5px; color:var(--sk-muted); font-family:var(--mono)}
+.timer{
+  display:inline-flex; align-items:center; gap:5px; font-family:var(--mono);
+  font-size:10px; font-weight:700; padding:3px 8px; border-radius:99px;
+  background:var(--bad-bg); color:var(--bad); margin-top:6px;
+}
+
+.swap{display:flex; align-items:center; gap:9px; margin-top:4px}
+.swapbox{flex:1; padding:10px; border-radius:11px; background:var(--sk-soft); text-align:center}
+.swapbox .lbl{font-family:var(--mono); font-size:8.5px; letter-spacing:.06em; color:var(--sk-muted); text-transform:uppercase}
+.swapbox .nm{font-size:10.5px; font-weight:600; line-height:1.3; margin:4px 0; min-height:27px}
+.swapbox .pr{font-family:var(--mono); font-size:14px; font-weight:700}
+.swaparrow{font-size:16px; color:var(--sk-muted); flex:none}
+.saveline{margin-top:10px; padding:10px 12px; border-radius:11px; text-align:center; background:var(--sk-primary); color:var(--sk-on)}
+.saveline b{font-family:var(--mono); font-size:18px; font-weight:700; display:block}
+.saveline span{font-size:10.5px; opacity:.9}
+
+.lgrow{display:flex; align-items:center; gap:10px; padding:8px 9px; border-radius:10px; font-size:12px; border:1.5px solid transparent}
+.lgrow + .lgrow{margin-top:3px}
+.lgrow.me{background:var(--sk-soft); border-color:var(--sk-primary); font-weight:700}
+.lgrow .pl{font-family:var(--mono); font-size:11px; color:var(--sk-muted); width:22px; flex:none}
+.lgrow.me .pl{color:var(--sk-primary-ink)}
+.lgrow .nm{flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.lgrow .sc{font-family:var(--mono); font-weight:700; font-size:11.5px}
+
+.fairnote{display:flex; gap:8px; padding:9px 11px; border-radius:11px; margin-top:9px; background:var(--sk-soft); font-size:10.5px; line-height:1.45; color:var(--sk-muted)}
+
+.refrow{display:flex; gap:8px; margin:10px 0}
+.refstat{flex:1; padding:10px; border-radius:11px; background:var(--sk-soft); text-align:center}
+.refstat b{display:block; font-family:var(--mono); font-size:19px; font-weight:700}
+.refstat span{font-size:9.5px; color:var(--sk-muted); line-height:1.2; display:block}
+.reflink{display:flex; align-items:center; gap:8px; padding:10px 12px; border-radius:11px; border:1.5px dashed var(--sk-line); font-family:var(--mono); font-size:11.5px; margin-top:9px}
+.reflink b{flex:1; font-weight:700; letter-spacing:.04em}
+
+.btn{width:100%; padding:13px; border-radius:13px; font-weight:700; font-size:13.5px; background:var(--sk-primary); color:var(--sk-on); margin-top:11px; transition:.15s}
+.btn:hover{filter:brightness(.94)}
+
+.why{
+  width:100%; margin-top:9px; padding:10px; border-radius:11px; text-align:left;
+  background:var(--sk-soft); font-size:11px; color:var(--sk-muted);
+  display:flex; align-items:center; gap:8px; border:1px solid var(--sk-line);
+}
+.why b{color:var(--sk-primary-ink); font-weight:700}
+
+.blocked{padding:15px; border-radius:var(--r); text-align:center; background:var(--sk-soft); border:1.5px dashed var(--sk-line)}
+.blocked .emo{font-size:33px}
+.blocked b{display:block; font-size:13.5px; margin:8px 0 5px; font-weight:700}
+.blocked p{margin:0; font-size:11.5px; color:var(--sk-muted); line-height:1.5}
+
+/* ---------- Правая половина ---------- */
+.righthead{margin-bottom:14px}
+.righthead h1{font-size:17px; font-weight:800}
+.righthead p{margin:5px 0 0; font-size:12.5px; color:var(--ink-2); line-height:1.5; max-width:62ch}
+
+.console{display:flex; flex-direction:column; gap:13px}
+.panel{background:var(--panel); border:1px solid var(--line); border-radius:var(--r); overflow:hidden}
+.phead{display:flex; align-items:center; gap:10px; padding:12px 15px; border-bottom:1px solid var(--line-2)}
+.phead h2{font-size:13.5px; font-weight:700}
+.phead .num{font-family:var(--mono); font-size:10px; color:var(--ink-3); border:1px solid var(--line); border-radius:5px; padding:2px 6px; flex:none}
+.phead .right{margin-left:auto; font-family:var(--mono); font-size:10.5px; color:var(--ink-3); text-align:right}
+.pbody{padding:14px 15px}
+.lede{font-size:12px; color:var(--ink-3); line-height:1.5; margin-bottom:12px}
+
+.verdict{display:flex; align-items:center; gap:12px; padding:13px 15px; border-radius:12px; margin-bottom:12px; border:1px solid}
+.verdict.go{background:var(--ok-bg); border-color:color-mix(in srgb,var(--ok) 28%,transparent)}
+.verdict.no{background:var(--bad-bg); border-color:color-mix(in srgb,var(--bad) 28%,transparent)}
+.verdict .big{font-family:var(--mono); font-size:22px; font-weight:700; letter-spacing:-.02em; white-space:nowrap}
+.verdict.go .big{color:var(--ok)} .verdict.no .big{color:var(--bad)}
+.verdict .txt{font-size:12px; line-height:1.45; color:var(--ink-2)}
+.verdict .txt b{color:var(--ink)}
+
+table{width:100%; border-collapse:collapse; font-size:12px}
+.scroll{overflow-x:auto}
+th{text-align:left; font-family:var(--mono); font-size:9.5px; font-weight:500; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-3); padding:0 9px 7px; white-space:nowrap; border-bottom:1px solid var(--line-2)}
+td{padding:9px; border-bottom:1px solid var(--line-2); vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+.num-c{font-family:var(--mono); text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
+tr.win{background:var(--ok-bg)}
+tr.win td:first-child{box-shadow:inset 3px 0 0 var(--ok)}
+tr.dim{opacity:.6}
+.mech{display:flex; align-items:center; gap:8px; font-weight:600; white-space:nowrap}
+.mech .ic{font-size:14px}
+.mech .lead{font-family:var(--mono); font-size:8px; letter-spacing:.04em; padding:1.5px 5px; border-radius:4px; background:var(--ink); color:var(--ground)}
+.pill{display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:500; padding:3px 8px; border-radius:99px; white-space:nowrap}
+.pill.ok{background:var(--ok-bg); color:var(--ok)}
+.pill.no{background:var(--bad-bg); color:var(--bad)}
+.pill.wa{background:var(--warn-bg); color:var(--warn)}
+.codes{display:flex; flex-wrap:wrap; gap:4px}
+.code{font-family:var(--mono); font-size:9px; padding:2px 6px; border-radius:4px; background:var(--line-2); color:var(--ink-2); white-space:nowrap}
+.code.neg{background:var(--bad-bg); color:var(--bad)}
+.code.pos{background:var(--ok-bg); color:var(--ok)}
+
+.waterfall{display:flex; flex-direction:column; gap:1px; font-family:var(--mono); font-size:11.5px}
+.wf{display:flex; align-items:center; gap:10px; padding:7px 10px; border-radius:6px}
+.wf:nth-child(odd){background:var(--line-2)}
+.wf .lb{flex:1; font-family:var(--ui); font-size:12px}
+.wf .vl{font-variant-numeric:tabular-nums; font-weight:500; min-width:78px; text-align:right}
+.wf.plus .vl{color:var(--ok)} .wf.minus .vl{color:var(--bad)}
+.wf.total{background:var(--ink); color:var(--ground); font-weight:700; margin-top:4px; border-radius:8px}
+.wf.total .vl{font-size:14px}
+.formula{font-family:var(--mono); font-size:10.5px; color:var(--ink-3); line-height:1.7; padding:11px 13px; background:var(--line-2); border-radius:9px; margin-top:11px; overflow-x:auto; white-space:pre}
+
+.note{display:flex; gap:9px; padding:11px 13px; border-radius:10px; font-size:11.5px; line-height:1.5; color:var(--ink-2); background:var(--line-2); margin-top:11px}
+.note b{color:var(--ink)}
+.note.warn{background:var(--warn-bg); color:var(--warn)}
+.note.warn b{color:var(--warn)}
+
+.kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(126px,1fr)); gap:9px}
+.kpi{padding:11px 13px; border-radius:11px; background:var(--line-2)}
+.kpi .k{font-family:var(--mono); font-size:9px; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-3)}
+.kpi .v{font-family:var(--mono); font-size:19px; font-weight:700; margin-top:4px; font-variant-numeric:tabular-nums}
+.kpi .v.ok{color:var(--ok)} .kpi .v.bad{color:var(--bad)}
+.kpi .s{font-size:10.5px; color:var(--ink-3); margin-top:2px}
+
+.simctl{display:flex; gap:7px; flex-wrap:wrap; margin-bottom:12px}
+.simbtn{padding:8px 13px; border-radius:9px; border:1px solid var(--line); background:var(--panel); font-size:12px; font-weight:600; transition:.15s}
+.simbtn:hover{border-color:var(--ink-3)}
+.simbtn.danger{color:var(--bad); border-color:color-mix(in srgb,var(--bad) 35%,transparent)}
+
+.ledger{display:flex; flex-direction:column; gap:6px; margin-top:12px}
+.lev{display:flex; align-items:center; gap:11px; padding:10px 12px; border-radius:9px; border:1px solid var(--line-2); font-size:12px}
+.lev .st{font-family:var(--mono); font-size:9.5px; padding:2.5px 7px; border-radius:5px; flex:none}
+.lev .ds{flex:1; line-height:1.4}
+.lev .ds b{display:block}
+.lev .ds span{font-size:10.5px; color:var(--ink-3)}
+.lev .sc{font-family:var(--mono); font-weight:700; font-size:13px; flex:none}
+
+.bars{display:flex; flex-direction:column; gap:9px; margin-top:4px}
+.bar .bl{display:flex; justify-content:space-between; font-size:11.5px; margin-bottom:4px; gap:10px}
+.bar .bl b{font-family:var(--mono); font-variant-numeric:tabular-nums; white-space:nowrap}
+.bar .tr{height:9px; border-radius:99px; background:var(--line-2); overflow:hidden; position:relative}
+.bar .fl{height:100%; border-radius:99px}
+.bar .zero{position:absolute; top:-2px; bottom:-2px; width:1px; background:var(--ink-3); opacity:.5}
+
+/* ============ Адаптив: в конце, чтобы перекрывать базовые правила ============ */
+/* Планшет и телефон: колонки складываются, страница скроллится целиком */
+@media (max-width:1020px){
+  body{overflow:auto}
+  .stage{height:auto; grid-template-columns:1fr}
+  .left{border-right:none; border-bottom:1px solid var(--line); overflow:visible; padding:16px 14px 24px}
+  .right{overflow:visible; padding:18px 14px 40px}
+  /* Телефон держит натуральный размер: растянутая рамка выглядит нелепо */
+  .left > *{width:100%; max-width:390px; min-width:0}
+  .pickers{width:100%; max-width:390px}
+  .phone{width:100%; max-width:390px}
+}
+
+/* Узкий экран: рамка телефона только мешает — показываем сам интерфейс */
+@media (max-width:560px){
+  .top{padding:0 14px}
+  .brandmark b{font-size:14px}
+  .left{padding:14px 12px 20px}
+  .right{padding:16px 12px 32px}
+  .phone{
+    width:100%; max-width:100%; height:auto; padding:0;
+    border-radius:22px; background:none; box-shadow:none;
+  }
+  .screen{border-radius:22px; height:auto; border:1px solid var(--line)}
+  .notch{display:none}
+  .statusbar{display:none}
+  .appbar{padding:13px 16px 11px}
+  .viewport{overflow:visible; max-height:none}
+  .tabbar{padding:7px 6px 9px; position:sticky; bottom:0}
+  .righthead h1{font-size:16px}
+  .pick{font-size:12px; padding:7px 11px}
+  .pick i{display:none}          /* подпись профиля не влезает — оставляем имя */
+  .left,.right,.stage{min-width:0; max-width:100vw}
+  .panel,.card,.hero{min-width:0}
+  .phead{flex-wrap:wrap; gap:7px}
+  .phead .right{margin-left:0; width:100%; text-align:left}
+  .kpis{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))}
+  .verdict{flex-direction:column; align-items:flex-start; gap:8px}
+  .formula{font-size:9.5px}
+}
+
+</style>
+
+<div class="top">
+  <div class="brandmark">
+    <b>Игровой слой лояльности X5</b>
+    <span>прототип · синтетические данные</span>
+  </div>
+  <div class="synthetic">СЦЕНАРИЙ, НЕ РЕЗУЛЬТАТ ПИЛОТА</div>
+</div>
+
+<div class="stage">
+  <div class="left">
+    <div class="pickers">
+      <div>
+        <span class="picklabel">Торговая сеть</span>
+        <div class="pickrow" id="chainPick"></div>
+      </div>
+      <div>
+        <span class="picklabel">Профиль покупателя</span>
+        <div class="pickrow" id="profPick"></div>
+      </div>
+    </div>
+    <div class="phone">
+      <div class="screen" id="screen">
+        <div class="notch"></div>
+        <div class="statusbar"><span>9:41</span><span>▮▮▮ ᯤ ▰</span></div>
+        <div class="appbar" id="appbar"></div>
+        <div class="viewport" id="viewport"></div>
+        <div class="tabbar" id="tabbar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="righthead">
+      <h1>Что происходит внутри</h1>
+      <p>Слева покупатель видит игру. Здесь — то, что при этом считает система: почему выбрана
+      именно эта механика, во сколько обойдётся награда и окупается ли она. Всё, что показано
+      слева, посчитано ниже.</p>
+    </div>
+    <div class="console" id="console"></div>
+  </div>
+</div>
+
+<script type="module" src="./app.js"></script>
